@@ -1,0 +1,14 @@
+/* ─────────────────────────────────────────
+   Patient Info Styles
+───────────────────────────────────────── */
+
+.pi-card {
+  background:#fff; border-radius:20px; padding:24px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.06); max-width:600px;
+}
+.pi-card-title { font-size:0.78rem; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 16px; }
+.pi-field { display:flex; justify-content:space-between; align-items:flex-start; padding:11px 0; border-bottom:1px solid #f3f4f6; }
+.pi-field:last-of-type { border-bottom:none; }
+.pi-field-label { font-size:0.78rem; color:#9ca3af; font-weight:500; }
+.pi-field-value { font-size:0.84rem; color:#111827; font-weight:600; text-align:right; max-width:58%; word-break:break-all; }
+.pi-spinner { width:16px; height:16px; border:2.5px solid #e5e7eb; border-top-color:#027346; border-radius:50%; animation:spin 0.7s linear infinite; display:inline-block; flex-shrink:0; }

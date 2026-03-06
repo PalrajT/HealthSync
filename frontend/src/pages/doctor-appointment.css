@@ -1,0 +1,291 @@
+/* ─────────────────────────────────────────
+   Doctor Appointment — Mobile-first, Desktop 2-col
+───────────────────────────────────────── */
+
+.da-page {
+  min-height: 100vh;
+  background: #f0f4f8;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Mobile Header ─── */
+.da-mobile-header {
+  width: 100%;
+  background: linear-gradient(135deg, #027346 0%, #015c38 100%);
+  border-radius: 0 0 26px 26px;
+  padding: 20px 20px 28px;
+  display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 6px 22px rgba(2,115,70,0.22);
+  position: relative; flex-shrink: 0;
+}
+.da-mobile-back {
+  position: absolute; top: 14px; left: 14px;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: none; color: #fff;
+  font-size: 15px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.2s;
+}
+.da-mobile-back:hover { background: rgba(255,255,255,0.28); }
+.da-mobile-logo { width: 50px; height: 50px; margin-bottom: 6px; }
+.da-mobile-brand { color: #fff; font-size: 1.05rem; font-weight: 900; letter-spacing: 0.1em; margin: 0; }
+.da-mobile-subtitle { color: rgba(255,255,255,0.6); font-size: 0.73rem; margin: 4px 0 0; }
+
+/* ─── Mobile content ─── */
+.da-content-wrap {
+  flex: 1; display: flex; flex-direction: column;
+  padding: 20px 16px 32px; gap: 20px;
+  max-width: 520px; width: 100%; margin: 0 auto;
+}
+.da-section-title {
+  font-size: 0.78rem; font-weight: 700; color: #6b7280;
+  text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 12px;
+}
+
+/* ─── Patient cards ─── */
+.da-patient-card {
+  background: #fff; border-radius: 16px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  animation: slideUp 0.35s ease both;
+}
+.da-patient-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.09); }
+.da-patient-avatar {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: #f0fdf4; border: 2px solid #e8f5ee;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0; color: #027346;
+}
+.da-patient-info { flex: 1; min-width: 0; }
+
+/* ─── Status badge ─── */
+.da-status-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 0.68rem; font-weight: 700; white-space: nowrap; flex-shrink: 0;
+}
+
+/* ─── Status filter tabs ─── */
+.da-status-tabs {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding: 12px 16px 0;
+}
+.da-status-tab {
+  flex-shrink: 0; padding: 6px 14px; border-radius: 20px;
+  border: 1.5px solid #e5e7eb; background: #fff;
+  font-size: 0.72rem; font-weight: 600; color: #6b7280;
+  cursor: pointer; font-family: inherit; white-space: nowrap; transition: all 0.18s;
+}
+.da-status-tab:hover:not(.da-status-tab--active) { border-color: #027346; color: #027346; }
+.da-status-tab--active { background: #027346; border-color: #027346; color: #fff; }
+
+/* ─── Card header / footer ─── */
+.da-card-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.da-patient-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.da-patient-slot, .da-patient-date, .da-patient-phone {
+  font-size: 0.72rem; color: #6b7280; margin: 0;
+}
+.da-appt-notes {
+  font-size: 0.77rem; color: #374151;
+  background: #f0fdf4; border-radius: 8px;
+  padding: 8px 12px; border-left: 3px solid #10b981; margin-bottom: 8px;
+}
+.da-appt-notes-label { font-weight: 700; color: #10b981; margin-right: 4px; }
+.da-appt-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; flex-wrap: wrap; padding-top: 8px;
+  border-top: 1px solid #f3f4f6;
+}
+.da-appt-booked-time { font-size: 0.68rem; color: #9ca3af; }
+
+/* ─── Action buttons ─── */
+.da-complete-btn {
+  background: #10b981; color: #fff; border: none;
+  border-radius: 10px; padding: 7px 13px;
+  font-size: 0.75rem; font-weight: 700; cursor: pointer;
+  transition: background 0.2s; font-family: inherit;
+}
+.da-complete-btn:hover:not(:disabled) { background: #059669; }
+.da-noshow-btn {
+  background: #f5f3ff; color: #8b5cf6; border: 1.5px solid #8b5cf6;
+  border-radius: 10px; padding: 7px 13px;
+  font-size: 0.75rem; font-weight: 700; cursor: pointer;
+  transition: all 0.2s; font-family: inherit;
+}
+.da-noshow-btn:hover:not(:disabled) { background: #ede9fe; }
+.da-complete-btn:disabled, .da-noshow-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ─── Notes modal ─── */
+.da-notes-modal {
+  background: #fff; border-radius: 20px; padding: 28px;
+  max-width: 440px; width: 92%;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  animation: popIn 0.3s ease both;
+}
+.da-notes-title { font-size: 1rem; font-weight: 800; color: #111827; margin: 0 0 10px; }
+.da-notes-patient { font-size: 0.82rem; color: #6b7280; margin: 0 0 6px; }
+.da-popup-noshow { color: #8b5cf6; }
+.da-notes-label {
+  font-size: 0.73rem; font-weight: 700; color: #374151;
+  text-transform: uppercase; letter-spacing: 0.05em; margin: 12px 0 6px;
+}
+.da-notes-textarea {
+  width: 100%; border: 1.5px solid #e5e7eb; border-radius: 10px;
+  padding: 10px 12px; font-size: 0.85rem; color: #111827;
+  outline: none; resize: vertical; font-family: inherit;
+  box-sizing: border-box; transition: border-color 0.2s; min-height: 80px;
+}
+.da-notes-textarea:focus { border-color: #027346; }
+.da-notes-actions { display: flex; gap: 10px; margin-top: 16px; }
+.da-complete-confirm-btn {
+  flex: 1; background: #10b981; color: #fff; border: none;
+  border-radius: 11px; padding: 12px; font-size: 0.88rem; font-weight: 700;
+  cursor: pointer; transition: background 0.2s; font-family: inherit;
+}
+.da-complete-confirm-btn:hover:not(:disabled) { background: #059669; }
+.da-complete-confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.da-notes-cancel-btn {
+  background: #f3f4f6; color: #6b7280; border: none;
+  border-radius: 11px; padding: 12px 18px;
+  font-size: 0.88rem; font-weight: 600; cursor: pointer; font-family: inherit;
+}
+.da-notes-cancel-btn:hover { background: #e5e7eb; }
+
+/* ─── Desktop stat cards — color top borders ─── */
+@media (min-width: 900px) {
+  .da-status-tabs.da-status-tabs--desktop { flex-wrap: wrap; padding: 16px 32px 0; }
+  .da-stat-card:nth-child(1) { border-top: 3px solid #f59e0b; }
+  .da-stat-card:nth-child(2) { border-top: 3px solid #3b82f6; }
+  .da-stat-card:nth-child(3) { border-top: 3px solid #10b981; }
+  .da-stat-card:nth-child(4) { border-top: 3px solid #6366f1; }
+}
+.da-patient-name { font-size: 0.9rem; font-weight: 700; color: #111827; margin: 0 0 3px; }
+.da-patient-slot { font-size: 0.75rem; color: #6b7280; margin: 0 0 2px; }
+.da-patient-phone { font-size: 0.72rem; color: #9ca3af; margin: 0; }
+.da-patient-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.da-accept-btn {
+  background: #027346; color: #fff; border: none;
+  border-radius: 10px; padding: 8px 14px;
+  font-size: 0.78rem; font-weight: 700; cursor: pointer;
+  transition: background 0.2s; font-family: inherit;
+}
+.da-accept-btn:hover:not(:disabled) { background: #015c38; }
+.da-reject-btn {
+  background: #fee2e2; color: #dc2626; border: none;
+  border-radius: 10px; padding: 8px 14px;
+  font-size: 0.78rem; font-weight: 700; cursor: pointer;
+  transition: background 0.2s; font-family: inherit;
+}
+.da-reject-btn:hover:not(:disabled) { background: #fecaca; }
+.da-accept-btn:disabled, .da-reject-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ─── Booked card ─── */
+.da-booked-card {
+  background: #fff; border-radius: 16px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-left: 3px solid #027346;
+  animation: slideUp 0.35s ease both;
+}
+
+/* ─── Status check icon ─── */
+.da-check-icon { color: #027346; font-size: 20px; flex-shrink: 0; }
+
+/* ─── Empty / Loading ─── */
+.da-empty { text-align: center; color: #9ca3af; font-size: 0.85rem; padding: 24px 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.da-empty-icon { font-size: 2rem; }
+.da-spinner-wrap { display: flex; align-items: center; justify-content: center; padding: 24px 0; gap: 10px; color: #6b7280; font-size: 0.85rem; }
+.da-spinner { width: 18px; height: 18px; border: 2.5px solid #e5e7eb; border-top-color: #027346; border-radius: 50%; animation: spin 0.7s linear infinite; }
+
+/* ─── Popup overlay ─── */
+.da-popup-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; }
+.da-popup-box {
+  background: #fff; border-radius: 22px; padding: 32px 28px;
+  text-align: center; max-width: 280px; width: 90%;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  animation: popIn 0.35s ease both;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.da-popup-icon { font-size: 2.8rem; }
+.da-popup-msg { font-size: 0.95rem; font-weight: 700; color: #111827; margin: 0; }
+.da-popup-success { color: #15803d; }
+.da-popup-reject { color: #dc2626; }
+
+/* ─────────────────────────────────────────
+   DESKTOP (>= 900px)
+───────────────────────────────────────── */
+.da-sidebar { display: none; }
+.da-main { display: none; }
+
+@media (min-width: 900px) {
+  .da-page { flex-direction: row; }
+  .da-mobile-header { display: none; }
+  .da-content-wrap { display: none; }
+
+  /* Left sidebar — stats + nav */
+  .da-sidebar {
+    display: flex !important;
+    width: 260px; min-height: 100vh; flex-shrink: 0;
+    background: linear-gradient(180deg, #0e3d27 0%, #072618 100%);
+    flex-direction: column; padding: 32px 0 24px;
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
+    box-shadow: 2px 0 18px rgba(0,0,0,0.12);
+  }
+  .da-sidebar-top {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .da-sidebar-logo { width: 48px; height: 48px; margin-bottom: 8px; }
+  .da-sidebar-brand { color: #fff; font-size: 0.95rem; font-weight: 900; letter-spacing: 0.1em; margin: 0; }
+
+  .da-sidebar-stats { padding: 22px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .da-stat-card {
+    background: rgba(255,255,255,0.07); border-radius: 12px; padding: 13px 15px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .da-stat-icon { font-size: 20px; flex-shrink: 0; }
+  .da-stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.5); margin: 0 0 3px; }
+  .da-stat-value { font-size: 1.2rem; font-weight: 800; color: #fff; margin: 0; }
+
+  .da-sidebar-nav { padding: 0 12px; display: flex; flex-direction: column; gap: 4px; }
+  .da-sidebar-nav-btn {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; padding: 11px 14px; background: transparent;
+    border: none; border-radius: 11px;
+    color: rgba(255,255,255,0.65); font-size: 0.84rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; text-align: left; font-family: inherit;
+  }
+  .da-sidebar-nav-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .da-sidebar-nav-btn--active { background: rgba(255,255,255,0.14); color: #fff; font-weight: 600; }
+  .da-sidebar-back {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 12px 0;
+    background: none; border: none;
+    color: rgba(255,255,255,0.45); font-size: 0.8rem;
+    cursor: pointer; font-family: inherit; transition: color 0.2s; margin-top: auto;
+  }
+  .da-sidebar-back:hover { color: rgba(255,255,255,0.8); }
+
+  /* Main */
+  .da-main {
+    display: flex !important;
+    flex: 1; flex-direction: column; overflow-y: auto;
+  }
+  .da-topbar {
+    background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 16px 32px; display: flex;
+    align-items: center; justify-content: space-between;
+    flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .da-topbar-title { font-size: 1.15rem; font-weight: 800; color: #111827; }
+  .da-topbar-count { font-size: 0.8rem; color: #6b7280; margin-top: 2px; }
+  .da-topbar-badge { background: #e8f5ee; color: #027346; border-radius: 20px; padding: 6px 14px; font-size: 0.78rem; font-weight: 600; }
+
+  .da-desktop-content { flex: 1; padding: 28px 32px; display: flex; flex-direction: column; gap: 28px; }
+  .da-desktop-section-title {
+    font-size: 0.78rem; font-weight: 700; color: #6b7280;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+  }
+  .da-cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+}

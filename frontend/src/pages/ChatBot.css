@@ -1,0 +1,366 @@
+/* ─── ChatBot Widget — HealthSync ─── */
+
+/* ── Floating Action Button ── */
+.cb-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #027346 0%, #015c38 100%);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(2, 115, 70, 0.45), 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+  animation: cbFabIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes cbFabIn {
+  from { opacity: 0; transform: scale(0) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.cb-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(2, 115, 70, 0.55), 0 3px 12px rgba(0, 0, 0, 0.18);
+}
+.cb-fab--open {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Unread dot */
+.cb-fab-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 2px solid #fff;
+  animation: cbPulse 1.4s ease-in-out infinite;
+}
+@keyframes cbPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+/* ── Chat Panel ── */
+.cb-panel {
+  position: fixed;
+  bottom: 96px;
+  right: 24px;
+  z-index: 9998;
+  width: 370px;
+  max-height: 580px;
+  min-height: 400px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.18),
+    0 6px 20px rgba(0, 0, 0, 0.10),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: cbPanelIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes cbPanelIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.93); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Mobile adjustments */
+@media (max-width: 430px) {
+  .cb-panel {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 90vh;
+    border-radius: 24px 24px 0 0;
+  }
+  .cb-fab {
+    bottom: 16px;
+    right: 16px;
+  }
+}
+
+/* ── Header ── */
+.cb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: linear-gradient(135deg, #027346 0%, #014d2d 100%);
+  flex-shrink: 0;
+}
+.cb-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cb-header-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.cb-header-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+.cb-header-status {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 2px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.cb-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 6px #4ade80;
+  flex-shrink: 0;
+  animation: cbPulse 2s ease-in-out infinite;
+}
+.cb-header-actions {
+  display: flex;
+  gap: 4px;
+}
+.cb-header-btn {
+  background: rgba(255, 255, 255, 0.14);
+  border: none;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.cb-header-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* ── Messages area ── */
+.cb-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f8fafb;
+  scroll-behavior: smooth;
+}
+.cb-messages::-webkit-scrollbar { width: 4px; }
+.cb-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+/* ── Message bubbles ── */
+.cb-bubble-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  animation: cbMsgIn 0.28s ease both;
+}
+@keyframes cbMsgIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cb-bubble-wrap--user {
+  flex-direction: row-reverse;
+}
+.cb-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e8f5ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  border: 1.5px solid #c8e9d8;
+}
+.cb-bubble {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  font-family: inherit;
+  word-break: break-word;
+}
+.cb-bubble--bot {
+  background: #fff;
+  color: #111827;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  border: 1px solid #f0f0f0;
+}
+.cb-bubble--user {
+  background: linear-gradient(135deg, #027346 0%, #015c38 100%);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 8px rgba(2, 115, 70, 0.28);
+}
+
+/* Typing indicator */
+.cb-typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  min-width: 56px;
+}
+.cb-typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9ca3af;
+  animation: cbDot 1.2s ease-in-out infinite;
+}
+.cb-typing span:nth-child(2) { animation-delay: 0.2s; }
+.cb-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes cbDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ── Suggestion chips ── */
+.cb-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 0 2px 38px;
+  animation: cbMsgIn 0.3s ease 0.1s both;
+}
+.cb-chip {
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #027346;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.12s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.cb-chip:hover {
+  background: #f0fdf4;
+  border-color: #027346;
+  transform: translateY(-1px);
+}
+
+/* ── Navigation action button ── */
+.cb-action-btn {
+  margin: 6px 0 0 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #027346 0%, #015c38 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 3px 12px rgba(2, 115, 70, 0.3);
+  font-family: inherit;
+  animation: cbMsgIn 0.3s ease 0.15s both;
+}
+.cb-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(2, 115, 70, 0.4);
+}
+
+/* ── Input area ── */
+.cb-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #fff;
+  border-top: 1px solid #f3f4f6;
+  flex-shrink: 0;
+}
+.cb-input {
+  flex: 1;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 9px 14px;
+  font-size: 0.86rem;
+  color: #111827;
+  background: #f9fafb;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  resize: none;
+}
+.cb-input:focus {
+  border-color: #027346;
+  box-shadow: 0 0 0 3px rgba(2, 115, 70, 0.1);
+  background: #fff;
+}
+.cb-input::placeholder { color: #9ca3af; }
+.cb-input:disabled { opacity: 0.5; }
+
+.cb-send-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #027346 0%, #015c38 100%);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.15s, opacity 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(2, 115, 70, 0.28);
+}
+.cb-send-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(2, 115, 70, 0.4);
+}
+.cb-send-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ── Footer note ── */
+.cb-footer-note {
+  text-align: center;
+  font-size: 0.62rem;
+  color: #9ca3af;
+  padding: 4px 12px 8px;
+  background: #fff;
+  margin: 0;
+  flex-shrink: 0;
+  line-height: 1.4;
+}

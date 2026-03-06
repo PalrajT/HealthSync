@@ -1,0 +1,194 @@
+/* ─────────────────────────────────────────
+   Login/Register Role Selection Styles
+───────────────────────────────────────── */
+
+/* ── Left panel ── */
+.lr-left-panel {
+  display: none;
+  flex: 0 0 400px;
+  background: linear-gradient(160deg, #027346 0%, #013d25 100%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lr-deco-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.lr-deco-ring-lg { width: 420px; height: 420px; }
+.lr-deco-ring-md { width: 260px; height: 260px; }
+
+.lr-deco-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  pointer-events: none;
+}
+.lr-deco-blob-tr { top: -60px; right: -60px; width: 220px; height: 220px; background: rgba(3, 150, 88, 0.22); }
+.lr-deco-blob-bl { bottom: -40px; left: -40px; width: 180px; height: 180px; background: rgba(1, 60, 35, 0.38); }
+
+.lr-left-logo {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 22px;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.25));
+  animation: pulse 3s ease-in-out infinite;
+}
+.lr-left-brand {
+  color: #fff;
+  font-size: 1.9rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin: 0 0 12px;
+  text-align: center;
+}
+.lr-left-tagline {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.88rem;
+  text-align: center;
+  line-height: 1.65;
+  max-width: 280px;
+  margin: 0 0 36px;
+}
+
+.lr-features { display: flex; flex-direction: column; gap: 13px; width: 100%; max-width: 280px; }
+.lr-feature-row { display: flex; align-items: center; gap: 10px; }
+.lr-feature-check {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.lr-feature-row span { color: rgba(255, 255, 255, 0.8); font-size: 0.84rem; }
+
+/* ── Right panel ── */
+.lr-right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.lr-mobile-header {
+  width: 100%;
+  background: linear-gradient(135deg, #027346 0%, #015c38 100%);
+  border-radius: 0 0 32px 32px;
+  padding: 32px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 6px 24px rgba(2, 115, 70, 0.22);
+}
+
+.lr-desktop-greeting { display: none; }
+
+.lr-form-area {
+  width: 100%;
+  max-width: 500px;
+  padding: 36px 24px 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.lr-who-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 20px;
+  text-align: center;
+  animation: slideDown 0.4s ease 0.1s both;
+}
+
+.lr-role-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 22px;
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  animation: slideUp 0.4s ease both;
+}
+.lr-role-card--hovered {
+  border-color: #027346;
+  background: #fafffe;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(2, 115, 70, 0.14);
+}
+
+.lr-role-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.lr-role-icon--hovered { background: #e8f5ee; }
+
+.lr-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 26px 0 14px;
+  animation: fadeIn 0.5s ease 0.4s both;
+}
+
+.lr-register-btn {
+  flex: 1;
+  padding: 12px;
+  background: transparent;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 13px;
+  font-size: 0.81rem;
+  font-weight: 600;
+  color: #374151;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-family: inherit;
+}
+.lr-register-btn:hover {
+  border-color: #027346;
+  color: #027346;
+  background: #f0fdf4;
+}
+
+/* ── Desktop breakpoint ── */
+@media (min-width: 768px) {
+  .lr-left-panel { display: flex !important; }
+  .lr-mobile-header { display: none !important; }
+  .lr-desktop-greeting {
+    display: block !important;
+    padding: 48px 48px 0;
+    align-self: flex-start;
+    width: 100%;
+    max-width: 500px;
+    animation: slideDown 0.4s ease both;
+  }
+  .lr-form-area { padding: 28px 48px 40px; }
+  .lr-who-label { text-align: left !important; }
+}
